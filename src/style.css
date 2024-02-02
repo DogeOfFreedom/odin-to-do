@@ -1,3 +1,13 @@
+:root {
+    --radius: 15px;
+    --button-width: 60px;
+}
+
+@font-face {
+    font-family: coolvetica;
+    src: url(fonts/coolvetica\ rg.otf);
+}
+
 body {
     background-image: linear-gradient(45deg, rgb(0, 77, 177), rgb(0, 225, 255));
     display: flex;
@@ -8,20 +18,59 @@ body {
 }
 
 .content {
-    background-color: white;
-    border-radius: 15px;
+    background-color: rgb(244, 248, 255);
+    border-radius: var(--radius);
     height: 800px; /* Placeholder */
     width: 55vw;
     box-shadow: 0px 5px 10px rgba(0, 50, 115, 0.8);
+    display: flex;
+    align-items: normal;
+    /* Needed for positioning add button */
+    position: relative; 
+}
+
+.sidebar {
+    height: 100%;
+    width: 30%;
+    background-color: rgb(219, 228, 242);;
+    border-radius: var(--radius) 0px 0px var(--radius);
+    box-shadow: 2px 0px 5px rgba(141, 145, 154, 0.7);
+}
+
+.body-content {
+    height: 100%;
+    flex: auto;
+}
+
+.add-button {
+    border: 0px;
+    border-radius: 100px;
+    background-color: rgba(44, 134, 199, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--button-width);
+    width: var(--button-width);
+    box-sizing: border-box;
+    padding: 0px;
+    position: absolute;
+    top: 2.5%;
+    right: 2.5%;
+    box-shadow: 2px 2px 2px rgb(168, 173, 184);
+
+    & span {
+        color: white;
+        font-size: var(--button-width);
+    }
 }
 
 @media only screen and (max-width: 1750px) {
     .content {
-        width: 60vw;
+        width: 65vw;
     }
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1000px) {
     body {
         display: inline;
     }
