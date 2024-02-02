@@ -1,0 +1,34 @@
+body {
+    background-image: linear-gradient(45deg, rgb(0, 77, 177), rgb(0, 225, 255));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0px;
+}
+
+.content {
+    background-color: white;
+    border-radius: 15px;
+    height: 800px; /* Placeholder */
+    width: 55vw;
+    box-shadow: 0px 5px 10px rgba(0, 50, 115, 0.8);
+}
+
+@media only screen and (max-width: 1750px) {
+    .content {
+        width: 60vw;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    body {
+        display: inline;
+    }
+
+    .content {
+        border-radius: 0px;
+        height: 100%;
+        width: 100%;
+    }
+}
