@@ -9,5 +9,7 @@ let priority = "high";
 
 let project1 = createProject("myProject");
 let todo1 = createToDo(title, description, dueDate, priority);
-addToDo(project1, todo1);
-console.log(project1);
+todo1.toDoPriority = "low";
+console.log(todo1);
+// addToDo(project1, todo1);
+// console.log(project1);
