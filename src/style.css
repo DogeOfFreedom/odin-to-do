@@ -1,6 +1,13 @@
 :root {
     --radius: 15px;
     --button-width: 60px;
+    --position-spacing: 3%;
+    --hidden-btn-right-offset: 9.5%;
+    --hidden-btn-top-offset: 1.5%;
+    --hidden-btn-gap: 8%;
+
+    --light-grey: rgb(219, 228, 242);
+    --button-shadow: rgb(168, 173, 184);
 }
 
 @font-face {
@@ -32,7 +39,7 @@ body {
 .sidebar {
     height: 100%;
     width: 30%;
-    background-color: rgb(219, 228, 242);;
+    background-color: var(--light-grey);
     border-radius: var(--radius) 0px 0px var(--radius);
     box-shadow: 2px 0px 5px rgba(141, 145, 154, 0.7);
 }
@@ -45,7 +52,7 @@ body {
 .add-button {
     border: 0px;
     border-radius: 100px;
-    background-color: rgba(44, 134, 199, 1);
+    background-color: rgb(33, 140, 227);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,14 +61,45 @@ body {
     box-sizing: border-box;
     padding: 0px;
     position: absolute;
-    top: 2.5%;
-    right: 2.5%;
+    top: var(--position-spacing);
+    right: var(--position-spacing);
     box-shadow: 2px 2px 2px rgb(168, 173, 184);
 
     & span {
         color: white;
         font-size: var(--button-width);
     }
+}
+
+.add-button:hover {
+    background-color: black;
+    height: calc(var(--button-width) + 2px);
+    width: calc(var(--button-width) + 2px);
+}
+
+.hide {
+    display: none;
+}
+
+.hidden-menu-btn {
+    /* display: none; */
+    position: absolute;
+    background-color: var(--light-grey);
+    padding: 12px;
+    border-radius: 10px;
+    border: 0px;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px var(--button-shadow);
+}
+
+.add-todo-button {
+    top: calc(var(--position-spacing) + var(--hidden-btn-top-offset));
+    right: calc(var(--position-spacing) + var(--hidden-btn-right-offset));
+}
+
+.add-project-button {
+    top: calc(var(--position-spacing) + var(--hidden-btn-top-offset) + var(--hidden-btn-gap));
+    right: calc(var(--position-spacing) + var(--hidden-btn-right-offset));
 }
 
 @media only screen and (max-width: 1750px) {

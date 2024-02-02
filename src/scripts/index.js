@@ -2,7 +2,13 @@ import "../style.css"
 import { createProject, addToDo, deleteToDo } from "./project.js";
 import { createToDo, changePriority } from "./todo.js";
 
-
+let add_btn = document.querySelector(".add-button");
+let new_todo_btn = document.querySelector(".add-todo-button");
+let new_project_btn = document.querySelector(".add-project-button");
+add_btn.addEventListener("click", () => {
+    new_todo_btn.classList.toggle("hide");
+    new_project_btn.classList.toggle("hide");
+})
 
 // let printOut = todos => {
 //     for(let todo of todos) {
