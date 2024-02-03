@@ -3,6 +3,7 @@ import { createProject, addToDo, deleteToDo } from "./project.js";
 import { createToDo, changePriority } from "./todo.js";
 import { populateProjectsList } from "./sidebar.js";
 
+// Adds hiding and unhiding buttons for hidden button menu
 let add_btn = document.querySelector(".add-button");
 let new_todo_btn = document.querySelector(".add-todo-button");
 let new_project_btn = document.querySelector(".add-project-button");
@@ -14,17 +15,14 @@ add_btn.addEventListener("click", () => {
 })
 
 // Adds "//" when sidebar options are hovered over
-let home_btn = document.querySelector("#home-btn");
-let today_btn = document.querySelector("#today-btn");
-let later_btn = document.querySelector("#later-btn");
-let notes_btn = document.querySelector("#notes-btn");
-
-for(let btn of [home_btn, today_btn, later_btn, notes_btn]) {
-    btn.addEventListener("mouseover", () => {
-        btn.textContent = "// " + btn.textContent; 
+let sidebar_options = document.querySelectorAll(".button-option");
+for(let option of sidebar_options) {
+    let child = document.querySelector(`#${option.id} button`);
+    option.addEventListener("mouseover", () => {
+        child.textContent = "// " + child.textContent; 
     })
-    btn.addEventListener("mouseout", () => {
-        btn.textContent = btn.textContent.slice(3);
+    option.addEventListener("mouseout", () => {
+        child.textContent = child.textContent.slice(3);
     })
 }
 

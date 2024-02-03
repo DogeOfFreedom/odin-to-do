@@ -80,8 +80,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 30px;
-    padding: 40px 30px;
+    /* gap: 30px; */
+    padding: 40px 0px;
     box-sizing: border-box;
 
     & :last-child {
@@ -91,6 +91,8 @@ body {
 
 .sidebar div {
     width: 100%;
+    padding: 15px 30px;
+    box-sizing: border-box;
 }
 
 .sidebar-big-text {
@@ -109,7 +111,7 @@ body {
     height: 100%;
 }
 
-.sidebar div button:hover {
+.sidebar div:hover button {
     font-size: calc(var(--sidebar-title) + 1px);
     font-weight: bold;
     color: var(--sidebar-highlight)
