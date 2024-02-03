@@ -11,9 +11,11 @@ Core Features:
     Optional Additions
     - Notes
     - Checklist
+        - Home (contains all todos)
+        - Today (todos due today)
+        - Later (todos not due today)
 - Users can have "Projects"
     - Within each project is a list of tasks
-
 - Core Features
     - Create Projects
     - Create Tasks and add to project
