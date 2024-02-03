@@ -111,7 +111,8 @@ body {
     height: 100%;
 }
 
-.sidebar div:hover button {
+.sidebar div:hover button,
+.highlighted {
     font-size: calc(var(--sidebar-title) + 1px);
     font-weight: bold;
     color: var(--sidebar-highlight)
@@ -185,6 +186,20 @@ body {
     right: calc(var(--position-spacing) + var(--hidden-btn-right-offset));
 }
 
+dialog {
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    box-shadow: 0px 5px 20px black;
+    border: 0px;
+    border-radius: 15px;
+}
+
+::backdrop {
+    /* background-image: radial-gradient(rgb(28, 28, 28), rgb(74, 74, 74)); */
+    backdrop-filter: blur(7px);
+}
+
 @media only screen and (max-width: 1500px) {
     body {
         display: block;
@@ -201,6 +216,6 @@ body {
     }
 
     .sidebar {
-        padding: 50px 30px;
+        padding: 50px 10px;
     }
 }
