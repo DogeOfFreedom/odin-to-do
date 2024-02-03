@@ -3,7 +3,7 @@ let createToDo = (title, description, dueDate, priority) => {
 }
 
 let changePriority = (todo, value) => {
-    let valid_priorities = ["low", "high"];
+    let valid_priorities = ["none", "low", "high"];
     if(valid_priorities.includes(value)) {
         todo.priority = value;
     }
