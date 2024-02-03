@@ -38,23 +38,43 @@ body {
     margin: 0px;
 }
 
-.content {
+.main-card {
     background-color: rgb(244, 248, 255);
     border-radius: var(--radius);
     height: 800px; /* Placeholder */
     width: clamp(850px, 50%, 1500px);
     box-shadow: 0px 5px 10px rgba(0, 50, 115, 0.8);
+    display: grid;
+    grid-template-rows: 75px 1fr;
+}
+
+.content {
     display: flex;
     align-items: normal;
-    /* Needed for positioning add button */
-    position: relative; 
+    position: relative;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: LEMONMILK;
+    font-size: 40px;
+    background-color: rgb(225, 152, 79);
+    color: white;
+    border-radius: var(--radius) var(--radius) 0px 0px;
+    line-height: 50px;
+}
+
+.title-icon {
+    font-size: 50px;
 }
 
 .sidebar {
     height: 100%;
     width: clamp(250px, 10%, 200px);
     background-color: var(--light-grey);
-    border-radius: var(--radius) 0px 0px var(--radius);
+    border-radius: 0 0px 0px var(--radius);
     box-shadow: 2px 0px 5px rgba(141, 145, 154, 0.7);
     display: flex;
     flex-direction: column;
@@ -160,10 +180,14 @@ body {
         display: block;
     }
 
-    .content {
+    .main-card {
         border-radius: 0px;
         height: 100%;
         width: 100%;
+    }
+
+    .title-container {
+        border-radius: 0px;
     }
 
     .sidebar {
