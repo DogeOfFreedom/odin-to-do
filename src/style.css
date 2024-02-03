@@ -2,9 +2,9 @@
     --radius: 15px;
     --button-width: 60px;
     --position-spacing: 3%;
-    --hidden-btn-right-offset: 70px;
+    --hidden-btn-right-offset: 80px;
     --hidden-btn-top-offset: 10px;
-    --hidden-btn-gap: 50px;
+    --hidden-btn-gap: 60px;
 
     --sidebar-title: 24px;
 
@@ -60,10 +60,11 @@ body {
     align-items: center;
     font-family: LEMONMILK;
     font-size: 40px;
-    background-color: rgb(225, 152, 79);
+    background-color: rgb(73, 201, 226);
     color: white;
     border-radius: var(--radius) var(--radius) 0px 0px;
     line-height: 50px;
+    text-shadow: 2px 2px 0px rgb(67, 149, 197);
 }
 
 .title-icon {
@@ -131,7 +132,7 @@ body {
     box-sizing: border-box;
     padding: 0px;
     position: absolute;
-    top: var(--position-spacing);
+    bottom: var(--position-spacing);
     right: var(--position-spacing);
     box-shadow: 2px 2px 2px rgb(168, 173, 184);
 
@@ -157,21 +158,28 @@ body {
     padding: 12px;
     border-radius: 10px;
     border: 0px;
-    font-size: 16px;
+    font-size: 18px;
     box-shadow: 2px 2px 5px var(--button-shadow);
 }
 
 .hidden-menu-btn:hover {
     padding: 14px;
+    background-color: var(--sidebar-highlight);
+    color: white;
 }
 
 .add-todo-button {
-    top: calc(var(--position-spacing) + var(--hidden-btn-top-offset));
+    bottom: calc(var(--position-spacing) + var(--hidden-btn-top-offset) + (var(--hidden-btn-gap)*2));
     right: calc(var(--position-spacing) + var(--hidden-btn-right-offset));
 }
 
 .add-project-button {
-    top: calc(var(--position-spacing) + var(--hidden-btn-top-offset) + var(--hidden-btn-gap));
+    bottom: calc(var(--position-spacing) + var(--hidden-btn-top-offset) + var(--hidden-btn-gap));
+    right: calc(var(--position-spacing) + var(--hidden-btn-right-offset));
+}
+
+.add-note-button {
+    bottom: calc(var(--position-spacing) + var(--hidden-btn-top-offset));
     right: calc(var(--position-spacing) + var(--hidden-btn-right-offset));
 }
 
