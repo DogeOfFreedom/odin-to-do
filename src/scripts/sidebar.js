@@ -1,4 +1,4 @@
-import { getProjects } from "./storage";
+import { getProjectList } from "./storage/projectStorage";
 
 let addButtonFunctionality = (element) => {
     let raw_value = element.getAttribute("value");
@@ -39,7 +39,7 @@ let addButtonFunctionality = (element) => {
 
 // Populate project list
 let populateProjectList = () => {
-    let projects = getProjects();
+    let projects = getProjectList();
     let project_list = document.querySelector(".project-list");
     project_list.innerHTML = "";
     for(let project of projects) {     
@@ -49,7 +49,7 @@ let populateProjectList = () => {
 
         let new_list_item = document.createElement("li");
         new_list_item.classList.add("sidebar-option", "project-option");
-        new_list_item.setAttribute("value", project.title) ;
+        new_list_item.setAttribute("value", project.id) ;
         new_list_item.setAttribute("selected", "false");
               
         new_list_item.appendChild(project_btn);

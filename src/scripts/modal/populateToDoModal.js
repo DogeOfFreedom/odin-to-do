@@ -1,4 +1,4 @@
-import { makeNewToDo } from "../storage";
+import { makeNewToDo } from "../storage/todoStorage.js";
 
 let modal = document.querySelector("dialog");
 let new_todo_btn = document.querySelector(".add-todo-button");
@@ -13,8 +13,8 @@ new_todo_btn.addEventListener("click", () => {
                 <textarea name="description" id="description" cols="10" rows="5" placeholder="Description..."></textarea>
                 <input type="date" id="date" required>
                 <div>  
-                    <button id="low-priority-btn" type="button" data-selected=false>Low</button>
-                    <button id="high-priority-btn" type="button" data-selected=false>High</button>
+                    <button id="low-priority-btn" type="button" data-selected="false">Low</button>
+                    <button id="high-priority-btn" type="button" data-selected="false">High</button>
                 </div>
                 <button id="form-submit-btn" type="button">Submit</button>
             </form>
@@ -36,14 +36,14 @@ new_todo_btn.addEventListener("click", () => {
         if(selected === "false") {
             low_priority_btn.style.color = "rgb(244, 248, 255)";
             low_priority_btn.style["background-color"] = "green";
-            low_priority_btn.setAttribute("data-selected", true);
-            if(high_priority_btn.getAttribute("data-selected") === true) {
+            low_priority_btn.setAttribute("data-selected", "true");
+            if(high_priority_btn.getAttribute("data-selected") === "true") {
                 high_priority_btn.click();
             }
         } else {
             low_priority_btn.style.color = "green";
             low_priority_btn.style["background-color"] = "rgb(244, 248, 255)";
-            low_priority_btn.setAttribute("data-selected", false);
+            low_priority_btn.setAttribute("data-selected", "false");
         }
     })
 
@@ -52,14 +52,14 @@ new_todo_btn.addEventListener("click", () => {
         if(selected === "false") {
             high_priority_btn.style.color = "rgb(244, 248, 255)";
             high_priority_btn.style["background-color"] = "red";
-            high_priority_btn.setAttribute("data-selected", true);
-            if(low_priority_btn.getAttribute("data-selected") === true) {
+            high_priority_btn.setAttribute("data-selected", "true");
+            if(low_priority_btn.getAttribute("data-selected") === "true") {
                 low_priority_btn.click();
             }
         } else {
             high_priority_btn.style.color = "red";
             high_priority_btn.style["background-color"] = "rgb(244, 248, 255)";
-            high_priority_btn.setAttribute("data-selected", false);
+            high_priority_btn.setAttribute("data-selected", "false");
         }
     })
 })

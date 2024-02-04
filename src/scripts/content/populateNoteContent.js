@@ -1,0 +1,5 @@
+let populateNote = () => {
+
+}
+
+export { populateNote }

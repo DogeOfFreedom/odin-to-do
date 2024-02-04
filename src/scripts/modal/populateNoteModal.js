@@ -1,4 +1,4 @@
-import { makeNewNote } from "../storage";
+import { makeNewNote } from "../storage/noteStorage.js";
 
 let modal = document.querySelector("dialog");
 let new_note_btn = document.querySelector(".add-note-button");

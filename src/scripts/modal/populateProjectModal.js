@@ -1,4 +1,4 @@
-import { makeNewProject } from "../storage";
+import { makeNewProject } from "../storage/projectStorage.js";
 
 let modal = document.querySelector("dialog");
 let new_project_btn = document.querySelector(".add-project-button");
