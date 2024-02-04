@@ -41,32 +41,38 @@ let makeNewToDo = (element) => {
     }
 
     let new_to_do = createToDo(title, description, dueDate, priority);
-    addToDo(home_project, new_to_do);
 
     // choose which project to add todo to depending on which option in the sidebar is selected
     let targetProject = chooseProject();
     addToDo(targetProject, new_to_do);
     if(targetProject.title === "home") {
         localStorage.setItem("home", JSON.stringify(home_project));
+    } else {
+        localStorage.setItem("projects", JSON.stringify(projects));
     }
 }
 
 let chooseProject = () => {
     let project_options = document.querySelectorAll(".project-option");
-    for(let project of project_options) {
-        if(project["selected"] === true) {
-            return project; 
+    for(let project_option of project_options) {
+        if(project_option.getAttribute("selected") === "true") {
+            let chosen_project = projects.filter(x => x.title === project_option.getAttribute("value"))[0]
+            return chosen_project; 
         }
     }
     return home_project;
 }
 
 let makeNewProject = (element) => {
-    let title = element.children[0].value;
+    let title = String(element.children[0].value);
     let new_project = createProject(title);
     projects.push(new_project);
     localStorage.setItem("projects", JSON.stringify(projects));
     populateProjectList();
+
+    // Cleanse project name
+    // project_name = project_name.trim();
+    // project_name = modifyName(existing_projects, project_name);
 }
 
 let deleteProject = project => {
@@ -83,8 +89,8 @@ let makeNewNote = (element) => {
     localStorage.setItem("notes", JSON.stringify(notes))
 }
 
-let getProjectNames = () => {
-    return projects.map(x => x.title);
+let getProjects = () => {
+    return projects;
 }
 
-export { makeNewToDo, makeNewProject, deleteProject, getProjectNames, makeNewNote }
+export { makeNewToDo, makeNewProject, deleteProject, getProjects, makeNewNote }

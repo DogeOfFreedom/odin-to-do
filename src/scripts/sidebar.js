@@ -1,18 +1,20 @@
-import { getProjectNames } from "./storage";
+import { getProjects } from "./storage";
 
 let addButtonFunctionality = (element) => {
-    let child = document.querySelector(`#${element.id} button`);
+    let raw_value = element.getAttribute("value");
+    let value = typeof raw_value === "number" ? String(raw_value) : raw_value;
+    let child = document.querySelector(`.sidebar-option[value="${value}"] button`);
     
     // Adds "//" when sidebar options are hovered over
     element.addEventListener("mouseover", () => {
-        if(child.getAttribute("selected") === "false") {
+        if(element.getAttribute("selected") === "false") {
             child.textContent = "// " + child.textContent; 
         }
     })
 
     // Removes "//" when sidebar options are hovered off
     element.addEventListener("mouseout", () => {
-        if(child.getAttribute("selected") === "false") {
+        if(element.getAttribute("selected") === "false") {
             child.textContent = child.textContent.slice(3);
         }
     })
@@ -21,23 +23,26 @@ let addButtonFunctionality = (element) => {
         // Remove the selected symbol from all other options
         let sidebar_options = document.querySelectorAll(".sidebar-option");
         for(let opt of sidebar_options) {
-            let opt_child = document.querySelector(`#${opt.id} button`);
-            opt_child.setAttribute("selected", "false");
+            opt.setAttribute("selected", "false");
+            let val = opt.getAttribute("value");
+            let opt_child = document.querySelector(`.sidebar-option[value="${val}"] button`);
             opt_child.classList.remove("highlighted");
             if(opt_child.textContent[0] === "/") {
                 opt_child.textContent = opt_child.textContent.slice(3);
             }
         }
-        child.setAttribute("selected", "true");
-        child.textContent = "// " + child.textContent; 
+        element.setAttribute("selected", "true");
         child.classList.add("highlighted");
+        child.textContent = "// " + child.textContent; 
+        
     })
 }
 
-let modifyName = (projects, name) => {
-    for(let i = 0; i < projects.length; i++) {
-        if(projects[i].id === `${name}-btn`) {
-            console.log(projects);
+// Checks if a name already exists with an array of objects
+// If yes, appends "-0"
+let modifyName = (arr, name) => {
+    for(let i = 0; i < arr.length; i++) {
+        if(arr[i].title === name) {
             let projs = projects.slice(i);
             return modifyName(projs, name + "-0");
         }
@@ -47,27 +52,19 @@ let modifyName = (projects, name) => {
 
 // Populate project list
 let populateProjectList = () => {
-    let project_names = getProjectNames();
+    let projects = getProjects();
     let project_list = document.querySelector(".project-list");
     project_list.innerHTML = "";
-    for(let project_name of project_names) {        
+    for(let project of projects) {     
         let project_btn = document.createElement("button");
-        project_btn.setAttribute("selected", "false");
         project_btn.setAttribute("type", "button");
-        project_btn.textContent = project_name;
-        // Cleanse project name
-        project_name = isNaN(project_name[0]) === true ? project_name : "a" + project_name;
-        project_name = project_name.replaceAll(/[^a-zA-Z0-9]/g, "");
+        project_btn.textContent = project.title;
 
         let new_list_item = document.createElement("li");
-        new_list_item.classList.add("project-option", "sidebar-option");
-        
-        // Check if id already exists
-        let existing_projects = Array.from(document.querySelectorAll(".project-option"));
-        project_name = modifyName(existing_projects, project_name);
-
-        new_list_item.id = project_name + "-btn";
-        
+        new_list_item.classList.add("sidebar-option", "project-option");
+        new_list_item.setAttribute("value", project.title) ;
+        new_list_item.setAttribute("selected", "false");
+              
         new_list_item.appendChild(project_btn);
         project_list.appendChild(new_list_item);
         
