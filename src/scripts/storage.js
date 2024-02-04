@@ -1,10 +1,12 @@
 import { createProject, addToDo, deleteToDo, printOutToDos } from "./objects/project";
 import { createToDo, changePriority } from "./objects/todo";
 import { createNote } from "./objects/note";
+import { populateProjectList } from "./sidebar";
 
 let notes = [];
 let projects = [];
 let home_project = createProject("home");
+
 
 let makeNewToDo = (element) => {
     let title = element.children[0].value;
@@ -28,21 +30,27 @@ let makeNewToDo = (element) => {
 
     let new_to_do = createToDo(title, description, dueDate, priority);
     addToDo(home_project, new_to_do);
-    printOutToDos(home_project);
 
-    /*
-    Required
-    
-    Add function that adds todo to relevant project depending on which option in the sidebar is selected
-    */
+    // choose which project to add todo to depending on which option in the sidebar is selected
+    let targetProject = chooseProject();
+    addToDo(targetProject, new_to_do);
+}
+
+let chooseProject = () => {
+    let project_options = document.querySelectorAll(".project-option");
+    for(let project of project_options) {
+        if(project["selected"] === true) {
+            return project; 
+        }
+    }
+    return home_project;
 }
 
 let makeNewProject = (element) => {
     let title = element.children[0].value;
-
     let new_project = createProject(title);
     projects.push(new_project);
-    console.log(projects);
+    populateProjectList();
 }
 
 let makeNewNote = (element) => {
@@ -51,7 +59,10 @@ let makeNewNote = (element) => {
     
     let new_note = createNote(title, description);
     notes.push(new_note);
-    console.log(notes);
 }
 
-export { makeNewToDo, makeNewProject, makeNewNote }
+let getProjectNames = () => {
+    return projects.map(x => x.title);
+}
+
+export { makeNewToDo, makeNewProject, makeNewNote, getProjectNames }

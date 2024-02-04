@@ -14,10 +14,5 @@ let deleteToDo = (project, todo) => {
     }
 }
 
-let printOutToDos = (project) => {
-    for(let todo of project.todos) {
-        console.log(todo);
-    }
-}
 
-export { createProject, addToDo, deleteToDo, printOutToDos }
+export { createProject, addToDo, deleteToDo }
