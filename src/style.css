@@ -141,6 +141,11 @@ body {
     color: var(--sidebar-highlight);
 }
 
+#projects-header {
+    border-bottom: 2px solid black;
+    margin-top: 30px;
+}
+
 .body-content {
     height: 100%;
     flex: auto;
