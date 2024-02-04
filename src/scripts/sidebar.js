@@ -34,20 +34,7 @@ let addButtonFunctionality = (element) => {
         element.setAttribute("selected", "true");
         child.classList.add("highlighted");
         child.textContent = "// " + child.textContent; 
-        
     })
-}
-
-// Checks if a name already exists with an array of objects
-// If yes, appends "-0"
-let modifyName = (arr, name) => {
-    for(let i = 0; i < arr.length; i++) {
-        if(arr[i].title === name) {
-            let projs = projects.slice(i);
-            return modifyName(projs, name + "-0");
-        }
-    }
-    return name;
 }
 
 // Populate project list

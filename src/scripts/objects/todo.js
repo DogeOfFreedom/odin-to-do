@@ -1,6 +1,6 @@
-let createToDo = (title, description, dueDate, priority) => {
+let createToDo = (id, title, description, dueDate, priority) => {
     let completed = false;
-    return { title, description, dueDate, priority, completed };
+    return { id, title, description, dueDate, priority, completed };
 }
 
 let changePriority = (todo, value) => {

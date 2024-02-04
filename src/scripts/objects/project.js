@@ -1,6 +1,6 @@
-let createProject = (title) => {
+let createProject = (id, title) => {
     let todos = [];
-    return { title, todos };
+    return { id, title, todos };
 }
 
 let addToDo = (project, todo) => {

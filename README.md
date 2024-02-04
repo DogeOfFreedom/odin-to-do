@@ -23,3 +23,10 @@ Core Features:
     - View all todos within a project
     - Expand a single todo to see/edit its details
     - Delete a todo
+
+
+Outstanding Features:
+ - Form verification
+ - Display notes
+ - Display checklist
+ - Display project todo list

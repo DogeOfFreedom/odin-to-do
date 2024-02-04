@@ -1,5 +1,5 @@
-let createNote = (title, description) => {
-    return { title, description };
+let createNote = (id, title, description) => {
+    return { id, title, description };
 }
 
 export { createNote };
