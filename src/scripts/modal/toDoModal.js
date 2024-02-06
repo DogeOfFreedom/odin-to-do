@@ -65,7 +65,7 @@ new_todo_btn.addEventListener("click", () => {
         let new_todo_form = document.querySelector(".todo-form");
         makeNewToDo(new_todo_form);
         
-        // Refresh home content if home is currently selected
+        // Refresh project content on page if selected
         let selected = getCurrentlySelected();
         console.log(selected);
         populate(selected);

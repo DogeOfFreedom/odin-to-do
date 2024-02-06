@@ -11,9 +11,12 @@
     --text: 20px;
     --row-icon-size: 45px;
 
+    --sidebar-width: clamp(350px, 10%, 200px);
+
     --light-grey: rgb(219, 228, 242);
     --button-shadow: rgb(168, 173, 184);
     --light-blue: rgb(33, 140, 227);
+    --light-red: rgb(239, 10, 10);
     --sidebar-highlight: rgb(25, 146, 238);
     --white: rgb(244, 248, 255);
     --strike-out: rgb(174, 174, 174);
@@ -81,7 +84,7 @@ body {
 
 .sidebar {
     height: 100%;
-    width: clamp(350px, 10%, 200px);
+    width: var(--sidebar-width);
     background-color: var(--light-grey);
     border-radius: 0 0px 0px var(--radius);
     box-shadow: 2px 0px 5px rgba(141, 145, 154, 0.7);
@@ -165,12 +168,13 @@ body {
 .body-content {
     display: flex;
     flex-direction: column;
-    max-height: 100%;
+    height: 100%;
     padding: 20px 40px;
     box-sizing: border-box;
     gap: 15px;
     overflow: auto;
     flex: auto;
+    position: relative;
 }
 
 .empty-title {
@@ -210,7 +214,8 @@ body {
 
 #todo-checkbox:hover,
 #todo-edit-btn:hover,
-#todo-delete-btn:hover {
+#todo-delete-btn:hover,
+#todo-title:hover {
     cursor: pointer;
 }
 
@@ -257,29 +262,45 @@ body {
     grid-column: 5/6;
 }
 
-.add-button {
+.delete-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.big-btn {
+    height: var(--button-width);
+    width: var(--button-width);
     border: 0px;
     border-radius: 100px;
-    background-color: var(--light-blue);
     display: flex;
     align-items: center;
     justify-content: center;
-    height: var(--button-width);
-    width: var(--button-width);
-    box-sizing: border-box;
-    padding: 0px;
-    position: absolute;
-    bottom: var(--position-spacing);
-    right: var(--position-spacing);
     box-shadow: 2px 2px 2px rgb(168, 173, 184);
+    color: white;
+
+}
+
+.project-delete-btn {
+    background-color: var(--light-red);
 
     & span {
-        color: white;
-        font-size: var(--button-width);
+        font-size: calc(var(--button-width) - 7px);
     }
 }
 
-.add-button:hover {
+.add-btn {
+    bottom: var(--position-spacing);
+    right: var(--position-spacing);
+    position: absolute;
+    background-color: var(--light-blue);
+    
+    & span {
+        font-size: var(--button-width);
+    }
+}
+.project-delete-btn:hover,
+.floating-btn:hover {
     background-color: black;
     height: calc(var(--button-width) + 2px);
     width: calc(var(--button-width) + 2px);

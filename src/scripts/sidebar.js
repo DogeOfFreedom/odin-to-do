@@ -93,11 +93,15 @@ for(let option of sidebar_options) {
     addEventListenersForStyling(option);
 }
 
-populateProjectList();
-addContentLoadFunction();
+let initiate = () => {
+    populateProjectList();
+    addContentLoadFunction();
 
-// Home automatically selected upon loading
-let home = document.querySelector(".sidebar-option[value='home']");
-home.click();
+    // Home automatically selected upon loading
+    let home = document.querySelector(".sidebar-option[value='home']");
+    home.click();
+}
 
-export { populateProjectList, getCurrentlySelected };
+initiate();
+
+export { populateProjectList, getCurrentlySelected, initiate };

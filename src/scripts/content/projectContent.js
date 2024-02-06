@@ -1,4 +1,5 @@
-import { getProjectById, home_project, updateProjectTodos } from "../storage/projectStorage";
+import { initiate } from "../sidebar";
+import { getProjectById, home_project, updateProjectTodos, deleteToDo, deleteProject } from "../storage/projectStorage";
 import { showEmpty } from "./emptyContent";
 let months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
@@ -20,33 +21,35 @@ let populate = project => {
 
 let populateHome = () => {
     let todos = home_project.todos;
-    createToDos(todos);
+    createToDos("home", todos);
 }
 
 let populateToday = () => {
     let due_todos = filterToDos((a,b) => (a <= b));
-    createToDos(due_todos);
+    createToDos("home", due_todos);
 }
 
 let populateLater = () => {
     let due_todos = filterToDos((a,b) => (a > b));
-    createToDos(due_todos);
+    createToDos("home", due_todos);
 }
 
 let populateProject = id => {
     let targetProject = getProjectById(id);
     let todos = targetProject.todos;
-    createToDos(todos);
+    createToDos(id, todos);
 }
 
-let createToDos = todos => {
+let createToDos = (projectId, todos) => {
     if(todos.length > 0) {
         createToDoEntries(todos);
     } else {
         showEmpty();
+        if(projectId !== "home") {
+            createProjectDeleteButton(projectId);
+        }
     }
 }
-
 
 let filterToDos = filter => {
     let date = new Date();
@@ -92,11 +95,11 @@ let createToDoEntries = (todos) => {
             if(checked === "false") {
                 checked_box(box, title, due_date);
                 todo.completed = true;
-                updateProjectTodos(todo.projectId, todos)
+                updateProjectTodos(todo.projectId, todo)
             } else {
                 unchecked_box(box, title, due_date);
                 todo.completed = false;
-                updateProjectTodos(todo.projectId, todos)
+                updateProjectTodos(todo.projectId, todo)
             }
         })
         checkbox.appendChild(box);
@@ -160,13 +163,31 @@ let createToDoEntries = (todos) => {
         delete_btn.addEventListener("click", () => {
             let index = todos.indexOf(todo);
             todos.splice(index, 1);
-            updateProjectTodos(todo.projectId, todos);
-            createToDos(todos);
+            deleteToDo(todo.projectId, todos);
+            createToDos(todo.projectId, todos);
         })
 
         row.appendChild(delete_btn);
         body_content.appendChild(row);
     }
+}
+
+let createProjectDeleteButton = (projectId) => {
+    let content = document.querySelector(".body-content");
+    let delete_btn_container = document.createElement("div");
+    delete_btn_container.className = "delete-btn-container";
+    let delete_btn = document.createElement("button");
+    delete_btn.setAttribute("type", "button");
+    delete_btn.classList.add("project-delete-btn", "big-btn");
+    let span = document.createElement("span");
+    span.innerHTML = "&#x292B";
+    delete_btn.appendChild(span);
+    delete_btn.addEventListener("click", () => {
+        deleteProject(projectId);
+        initiate();
+    })
+    delete_btn_container.appendChild(delete_btn);
+    content.appendChild(delete_btn_container);
 }
 
 let checked_box = (box, title, dueDate)  => {
