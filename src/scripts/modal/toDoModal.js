@@ -1,4 +1,4 @@
-import { populateHome } from "../content/checklistContent.js";
+import { populate } from "../content/projectContent.js";
 import { getCurrentlySelected } from "../sidebar.js";
 import { makeNewToDo } from "../storage/todoStorage.js";
 
@@ -11,7 +11,7 @@ new_todo_btn.addEventListener("click", () => {
             <span>Add New To Do</span>
             </div>
             <form class="todo-form" action="">
-                <input name="title" type="text" id="title" placeholder="New To Do..." required>
+                <input name="title" type="text" id="title" maxlength="50" placeholder="New To Do..." required>
                 <textarea name="description" id="description" cols="10" rows="5" placeholder="Description..."></textarea>
                 <input type="date" id="date" required>
                 <div>  
@@ -67,8 +67,7 @@ new_todo_btn.addEventListener("click", () => {
         
         // Refresh home content if home is currently selected
         let selected = getCurrentlySelected();
-        if(selected === "home") {
-            populateHome();
-        }
+        console.log(selected);
+        populate(selected);
     });
 })

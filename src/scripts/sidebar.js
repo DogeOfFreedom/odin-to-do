@@ -1,6 +1,5 @@
-import { populateHome, populateToday, populateLater } from "./content/checklistContent";
+import { populate } from "./content/projectContent";
 import { populateNotes } from "./content/noteContent";
-import { populateProject } from "./content/projectContent";
 import { projects } from "./storage/projectStorage";
 
 let addEventListenersForStyling = (element) => {
@@ -63,20 +62,20 @@ let populateProjectList = () => {
 // Load content into main-content div when clicked
 let addContentLoadFunction = () => {
     let home_option = document.querySelector(`.sidebar-option[value="home"]`);
-    home_option.addEventListener("click", populateHome);
+    home_option.addEventListener("click", () => populate("home"));
 
     let today_option = document.querySelector(`.sidebar-option[value="today"]`);
-    today_option.addEventListener("click", populateToday);
+    today_option.addEventListener("click", () => populate("today"));
     
     let later_option = document.querySelector(`.sidebar-option[value="later"]`);
-    later_option.addEventListener("click", populateLater);
+    later_option.addEventListener("click", () => populate("later"));
 
     let notes_option = document.querySelector(`.sidebar-option[value="notes"]`);
     notes_option.addEventListener("click", populateNotes);
     
     let project_options = document.querySelectorAll(".project-option");
     for(let option of project_options) {
-        option.addEventListener("click", populateProject(option.getAttribute("value")));
+        option.addEventListener("click", () => populate(option.getAttribute("value")));
     }
 }
 

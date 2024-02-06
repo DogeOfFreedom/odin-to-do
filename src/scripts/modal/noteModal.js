@@ -1,3 +1,5 @@
+import { populateNotes } from "../content/noteContent.js";
+import { getCurrentlySelected } from "../sidebar.js";
 import { makeNewNote } from "../storage/noteStorage.js";
 
 let modal = document.querySelector("dialog");
@@ -9,7 +11,7 @@ new_note_btn.addEventListener("click", () => {
                 <span>Add New Note</span>
             </div>
             <form class="note-form" action="">
-                <input name="title" type="text" id="title" placeholder="New Note..." required>
+                <input name="title" type="text" id="title" maxlength="25" placeholder="New Note..." required>
                 <textarea name="description" id="description" cols="30" rows="10" placeholder="Description..."></textarea>
                 <button id="form-submit-btn" type="button">Submit</button>
             </form>   
@@ -22,5 +24,10 @@ new_note_btn.addEventListener("click", () => {
         modal.close();
         let new_note_form = document.querySelector(".note-form");
         makeNewNote(new_note_form);
+
+        let selected = getCurrentlySelected();
+        if(selected === "notes") {
+            populateNotes(selected);
+        }
     });
 })

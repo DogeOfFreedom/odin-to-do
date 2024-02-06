@@ -7,7 +7,7 @@
     --hidden-btn-gap: 60px;
 
     --sidebar-title: 24px;
-    --sidebar-title-small: 20px;
+    --sidebar-title-small: 18px;
     --text: 20px;
     --row-icon-size: 45px;
 
@@ -16,7 +16,7 @@
     --light-blue: rgb(33, 140, 227);
     --sidebar-highlight: rgb(25, 146, 238);
     --white: rgb(244, 248, 255);
-    --pog: rgb(7, 6, 85);
+    --strike-out: rgb(174, 174, 174);
 }
 
 @font-face {
@@ -59,6 +59,7 @@ body {
     position: relative;
     flex: auto;
     min-height: 100%;
+    overflow: hidden;
 }
 
 .title-container {
@@ -87,7 +88,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 40px 0px;
+    padding: 20px 0px;
     box-sizing: border-box;
 }
 
@@ -99,6 +100,7 @@ body {
     width: 100%;
     padding: 15px 30px;
     box-sizing: border-box;
+    min-width: 100%;
 }
 
 .sidebar-big-text {
@@ -117,16 +119,16 @@ body {
     height: 100%;
 }
 
-.sidebar div ul {
-    padding-left: 20px;
+.project-list {
+    padding-left: 10px;
     margin-top: 0px;
 }
 
-.sidebar div ul li {
+.project-list li {
     padding: 5px 0px;
 }
 
-.sidebar div ul li button {
+.project-list li button {
     list-style: none;
     text-align: start;
     font-size: var(--sidebar-title-small);
@@ -136,7 +138,7 @@ body {
     white-space: nowrap;
 }
 
-.sidebar div ul li {
+.project-list li {
     list-style: none;
 }
 
@@ -144,6 +146,11 @@ body {
     font-size: calc(var(--sidebar-title) + 1px);
     font-weight: bold;
     color: var(--sidebar-highlight);
+}
+
+.project-list-container {
+    overflow: auto;
+    margin-top: 10px;
 }
 
 .project-option button {
@@ -159,11 +166,19 @@ body {
     display: flex;
     flex-direction: column;
     max-height: 100%;
-    padding: 20px 30px;
+    padding: 20px 40px;
     box-sizing: border-box;
     gap: 15px;
     overflow: auto;
-    width: 100%;
+    flex: auto;
+}
+
+.empty-title {
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-align: center;
+    font-family: coolvetica;
+    font-weight: 100;
 }
 
 .todo-row {
@@ -218,6 +233,15 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.todo-title-hover:hover {
+    color: var(--sidebar-highlight);
+}
+
+.strike-out {
+    color: var(--strike-out);
+    text-decoration: line-through;
 }
 
 #todo-date {
@@ -294,6 +318,56 @@ body {
 .add-note-button {
     bottom: calc(var(--position-spacing) + var(--hidden-btn-top-offset));
     right: calc(var(--position-spacing) + var(--hidden-btn-right-offset));
+}
+
+.note-container {
+    column-count: 3;
+    column-gap: 15px;
+}
+
+.note-card {
+    border-radius: 15px;
+    box-shadow: 0px 5px 5px rgb(177, 177, 177);
+    display: flex;
+    flex-direction: column;
+    padding: 5px 15px;
+    box-sizing: border-box;
+    font-family: coolvetica;
+    min-width: 100%;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    /* background-color: ; */
+
+    & * {
+        overflow-wrap: break-word;
+    }
+}
+
+.note-title {
+    font-size: var(--text);
+}
+
+.note-description {
+    font-size: var(--text);
+}
+
+.note-delete-btn {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    font-size: 30px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    background-color: rgba(0,0,0,0);
+    font-weight: bold;
+    line-height: 34px;
+}
+
+.note-delete-btn:hover {
+    color: red;
+    font-size: 34px;
 }
 
 dialog {

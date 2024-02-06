@@ -39,12 +39,23 @@ let deleteProject = project => {
     projects.splice(index, 1);
 }
 
-let saveHomeProject = () => {
-    localStorage.setItem("home", JSON.stringify(home_project));
+let getProjectById = id => {
+    for(let project of projects) {
+        if(project.id === id) {
+            return project;
+        }
+    }
 }
 
-let saveProjects = () => {
-    localStorage.setItem("projects", JSON.stringify(projects));
+let updateProjectTodos = (projectId, todos) => {
+    if(projectId === "home") {
+        home_project.todos = todos;
+        localStorage.setItem("home", JSON.stringify(home_project));
+    } else {
+        let project = getProjectById(projectId);
+        project.todos = todos;
+        localStorage.setItem("projects", JSON.stringify(projects));
+    }
 }
 
-export { makeNewProject, updateProject, deleteProject, saveHomeProject, saveProjects, projects, home_project }
+export { makeNewProject, updateProject, deleteProject, updateProjectTodos, getProjectById, projects, home_project }

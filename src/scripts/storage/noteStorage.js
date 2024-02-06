@@ -36,6 +36,7 @@ let updateNote = element => {
 let deleteNote = note => {
     let index = notes.indexOf(note);
     notes.splice(index, 1);
+    localStorage.setItem("notes", JSON.stringify(notes));
 }
 
-export { makeNewNote, deleteNote, updateNote }
+export { makeNewNote, deleteNote, updateNote, notes }

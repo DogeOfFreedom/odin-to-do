@@ -10,7 +10,7 @@ new_project_btn.addEventListener("click", () => {
                 <span>Add New Project</span>
             </div>
             <form class="project-form" action="">
-                <input name="title" type="text" id="title" placeholder="New Project..." required>
+                <input name="title" type="text" id="title" maxlength="20" placeholder="New Project..." required>
                 <button id="form-submit-btn" type="button">Submit</button>
             </form> 
         </div>     
