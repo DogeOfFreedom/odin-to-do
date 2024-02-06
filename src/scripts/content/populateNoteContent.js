@@ -1,5 +1,0 @@
-let populateNote = () => {
-
-}
-
-export { populateNote }

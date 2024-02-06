@@ -1,10 +1,11 @@
 import { getById, modifyName } from "./storageHelper";
 import { projects, home_project } from "./projectStorage";
-import { createToDo, changePriority } from "../objects/todo";
+import { createToDo } from "../objects/todo";
 import { addToDo } from "../objects/project";
 
 let makeNewToDo = element => {
     let { id, title, description, dueDate, priority, targetProject } = extractFromToDoForm(element);
+    targetProject = targetProject === "" ? "home" : targetProject;
     let new_to_do = createToDo(id, title, description, dueDate, priority, targetProject.id);
 
     addToDo(targetProject, new_to_do);

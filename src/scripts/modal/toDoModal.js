@@ -1,3 +1,5 @@
+import { populateHome } from "../content/checklistContent.js";
+import { getCurrentlySelected } from "../sidebar.js";
 import { makeNewToDo } from "../storage/todoStorage.js";
 
 let modal = document.querySelector("dialog");
@@ -21,13 +23,6 @@ new_todo_btn.addEventListener("click", () => {
         </div>
     `
     modal.showModal();
-    let submit_btn = document.querySelector("#form-submit-btn");
-    submit_btn.addEventListener("click", e => {
-        e.preventDefault();
-        modal.close();
-        let new_todo_form = document.querySelector(".todo-form");
-        makeNewToDo(new_todo_form);
-    });
     
     let low_priority_btn = document.querySelector("#low-priority-btn");
     let high_priority_btn = document.querySelector("#high-priority-btn");
@@ -62,4 +57,18 @@ new_todo_btn.addEventListener("click", () => {
             high_priority_btn.setAttribute("data-selected", "false");
         }
     })
+
+    let submit_btn = document.querySelector("#form-submit-btn");
+    submit_btn.addEventListener("click", e => {
+        e.preventDefault();
+        modal.close();
+        let new_todo_form = document.querySelector(".todo-form");
+        makeNewToDo(new_todo_form);
+        
+        // Refresh home content if home is currently selected
+        let selected = getCurrentlySelected();
+        if(selected === "home") {
+            populateHome();
+        }
+    });
 })

@@ -1,6 +1,5 @@
 import { createProject } from "../objects/project";
 import { getById, modifyName } from "./storageHelper";
-import { populateProjectList } from "../sidebar";
 
 
 let projects = [];
@@ -19,7 +18,6 @@ let makeNewProject = element => {
     let new_project = createProject(id, title);
     projects.push(new_project);
     localStorage.setItem("projects", JSON.stringify(projects));
-    populateProjectList();
 }
 
 let extractFromProjectForm = element => {
@@ -41,8 +39,12 @@ let deleteProject = project => {
     projects.splice(index, 1);
 }
 
-let getProjectList = () => {
-    return projects;
+let saveHomeProject = () => {
+    localStorage.setItem("home", JSON.stringify(home_project));
 }
 
-export { makeNewProject, updateProject, deleteProject, getProjectList, projects, home_project }
+let saveProjects = () => {
+    localStorage.setItem("projects", JSON.stringify(projects));
+}
+
+export { makeNewProject, updateProject, deleteProject, saveHomeProject, saveProjects, projects, home_project }

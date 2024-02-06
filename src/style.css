@@ -8,12 +8,15 @@
 
     --sidebar-title: 24px;
     --sidebar-title-small: 20px;
+    --text: 20px;
+    --row-icon-size: 45px;
 
     --light-grey: rgb(219, 228, 242);
     --button-shadow: rgb(168, 173, 184);
     --light-blue: rgb(33, 140, 227);
     --sidebar-highlight: rgb(25, 146, 238);
     --white: rgb(244, 248, 255);
+    --pog: rgb(7, 6, 85);
 }
 
 @font-face {
@@ -44,7 +47,7 @@ body {
     background-color: var(--white);
     border-radius: var(--radius);
     height: 800px; /* Placeholder */
-    width: clamp(850px, 50%, 1500px);
+    width: clamp(1100px, 60%, 1500px);
     box-shadow: 0px 5px 10px rgba(0, 50, 115, 0.8);
     display: grid;
     grid-template-rows: 75px 1fr;
@@ -52,8 +55,10 @@ body {
 
 .content {
     display: flex;
-    align-items: normal;
+    align-items: flex-start;
     position: relative;
+    flex: auto;
+    min-height: 100%;
 }
 
 .title-container {
@@ -141,14 +146,91 @@ body {
     color: var(--sidebar-highlight);
 }
 
+.project-option button {
+    text-overflow: ellipsis;
+}
+
 #projects-header {
     border-bottom: 2px solid black;
     margin-top: 30px;
 }
 
 .body-content {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    gap: 15px;
+    overflow: auto;
+    width: 100%;
+}
+
+.todo-row {
+    display: grid;
+    grid-template-columns: 1fr 6fr 2fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    padding: 10px 0px;
+    box-sizing: border-box;
+    font-size: var(--text);
+    box-shadow: 0px 5px 5px rgb(177, 177, 177);
+    position: relative;
+}
+
+.todo-row-element {
+    font-family: Coolvetica;
+    margin: 0px;
+    text-align: center;
+}
+
+#todo-edit-btn,
+#todo-delete-btn {
+    font-size: calc(var(--row-icon-size) - 5px) ;
+    padding: 0px;
+    line-height: calc(var(--row-icon-size));
+    border: 0px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#todo-checkbox:hover,
+#todo-edit-btn:hover,
+#todo-delete-btn:hover {
+    cursor: pointer;
+}
+
+#priority-indicator {
+    position: absolute;
     height: 100%;
-    flex: auto;
+    width: 1%;
+}
+
+#todo-checkbox {
+    grid-column: 1/2;
+    font-size: var(--row-icon-size);
+    line-height: var(--row-icon-size);
+}
+
+#todo-title {
+    grid-column: 2/3;
+    line-height: var(--row-icon-size);
+    padding-left: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#todo-date {
+    grid-column: 3/4;
+    line-height: var(--row-icon-size);
+}
+
+#todo-edit-btn {
+    grid-column: 4/5;
+}
+
+#todo-delete-btn {
+    grid-column: 5/6;
 }
 
 .add-button {
@@ -360,4 +442,8 @@ form div {
     .sidebar {
         padding: 50px 10px;
     }
+}
+
+@media only screen and (max-width: 1000px) {
+    /* Hamburger sidebar */
 }

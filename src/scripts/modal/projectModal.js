@@ -1,4 +1,5 @@
 import { makeNewProject } from "../storage/projectStorage.js";
+import { populateProjectList } from "../sidebar.js";
 
 let modal = document.querySelector("dialog");
 let new_project_btn = document.querySelector(".add-project-button");
@@ -21,5 +22,6 @@ new_project_btn.addEventListener("click", () => {
         modal.close();
         let new_project_form = document.querySelector(".project-form");
         makeNewProject(new_project_form);
+        populateProjectList();
     });
 })
