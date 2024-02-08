@@ -281,7 +281,7 @@ body {
 
 }
 
-.project-delete-btn {
+.big-delete-btn {
     background-color: var(--light-red);
 
     & span {
@@ -299,8 +299,8 @@ body {
         font-size: var(--button-width);
     }
 }
-.project-delete-btn:hover,
-.floating-btn:hover {
+.big-delete-btn:hover,
+.add-btn:hover {
     background-color: black;
     height: calc(var(--button-width) + 2px);
     width: calc(var(--button-width) + 2px);
@@ -415,6 +415,10 @@ dialog {
     }
 }
 
+.view-todo-container {
+    padding: 10px 20px;
+}
+
 form {
     flex: auto;
     display: grid;
@@ -471,6 +475,7 @@ form {
 #description {
     grid-row: 2/3;
     grid-column: 1/4;
+    resize: none;
 }
 
 #date {

@@ -51,6 +51,7 @@ let populateProjectList = () => {
         new_list_item.classList.add("sidebar-option", "project-option");
         new_list_item.setAttribute("value", project.id) ;
         new_list_item.setAttribute("selected", "false");
+        new_list_item.addEventListener("click", () => populate(new_list_item.getAttribute("value")));
               
         new_list_item.appendChild(project_btn);
         project_list.appendChild(new_list_item);
@@ -72,12 +73,9 @@ let addContentLoadFunction = () => {
 
     let notes_option = document.querySelector(`.sidebar-option[value="notes"]`);
     notes_option.addEventListener("click", populateNotes);
-    
-    let project_options = document.querySelectorAll(".project-option");
-    for(let option of project_options) {
-        option.addEventListener("click", () => populate(option.getAttribute("value")));
-    }
 }
+
+
 
 let getCurrentlySelected = () => {
     let options = document.querySelectorAll(".sidebar-option");

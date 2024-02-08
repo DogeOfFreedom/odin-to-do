@@ -1,3 +1,5 @@
+import { createToDoModal } from "../modal/toDoModal";
+import { createViewToDoModal } from "../modal/viewToDoModal";
 import { initiate } from "../sidebar";
 import { getProjectById, home_project, updateProjectTodos, deleteToDo, deleteProject } from "../storage/projectStorage";
 import { showEmpty } from "./emptyContent";
@@ -68,6 +70,112 @@ let filterToDos = filter => {
     return due_todos;
 }
 
+let createPriorityIndicator = (todo, row) => {
+    let priority_indicator = document.createElement("div");
+    priority_indicator.id = "priority-indicator";
+    let colour = todo.priority === "none" ? "gray" : todo.priority === "low" ? "green" : "red";
+    priority_indicator.style["background-color"] = colour;
+    row.appendChild(priority_indicator);
+}
+
+let createCheckbox = (todo, row) => {
+    let checkbox = document.createElement("p");
+    checkbox.id = "todo-checkbox";
+    checkbox.className = "todo-row-element";
+    let box = document.createElement("span");
+    box.innerHTML = "&#x2610" // Unchecked Box
+    box.setAttribute("checked", "false");
+    box.addEventListener("click", () => {
+        let checked = box.getAttribute("checked");
+        let title = document.querySelector(`.todo-row[value="${todo.id}"] #todo-title`);
+        let due_date = document.querySelector(`.todo-row[value="${todo.id}"] #todo-date`);
+        if(checked === "false") {
+            checked_box(box, title, due_date);
+            todo.completed = true;
+            updateProjectTodos(todo.projectId, todo)
+        } else {
+            unchecked_box(box, title, due_date);
+            todo.completed = false;
+            updateProjectTodos(todo.projectId, todo)
+        }
+    })
+    checkbox.appendChild(box);
+    row.appendChild(checkbox);
+    return box;
+}
+
+let createTitle = (todo, row) => {
+    let title = document.createElement("p");
+    title.id = "todo-title";
+    title.classList.add("todo-row-element", "todo-title-hover");
+    title.textContent = todo.title;
+    title.addEventListener("click", () => {
+        createViewToDoModal(todo);
+    })
+    row.appendChild(title);
+    return title;
+}
+
+let createDueDate = (todo, row) => {
+    let due_date = document.createElement("p");
+    due_date.id = "todo-date";
+    due_date.className = "todo-row-element";
+    let dueDate = todo.dueDate;
+    if(dueDate !== "") {
+        let todo_due_date = dueDate.split("-");
+        let year = todo_due_date[0];
+        let month = months[Number(todo_due_date[1]) - 1];
+        let day = todo_due_date[2];
+        due_date.textContent = `${month} ${day} ${year}`;
+    } else {
+        due_date.textContent = "No Due Date";
+    }        
+    row.appendChild(due_date);
+
+    return due_date;
+}
+
+let createEditBtn = (todo, row) => {
+    let btn_highlight = "rgb(25, 146, 238)";
+    let edit_btn = document.createElement("button");
+    edit_btn.id = "todo-edit-btn";
+    edit_btn.className = "todo-row-element";
+    edit_btn.innerHTML = "&#x270E;"; // Pencil icon
+    createToDoModal("edit", edit_btn, todo);
+    edit_btn.addEventListener("mouseover", () => {
+        edit_btn.style.color = btn_highlight;
+        edit_btn.style["font-weight"] = "bold";
+    })
+    edit_btn.addEventListener("mouseout", () => {
+        edit_btn.style.color = "black";
+        edit_btn.style["font-weight"] = 100;
+    })
+    edit_btn.addEventListener("click", () => {
+        document.querySelector("dialog").showModal();
+    })
+    row.appendChild(edit_btn);
+}
+
+let createToDoDeleteBtn = (todo, todos, row) => {
+    let delete_btn = document.createElement("button");
+    delete_btn.id = "todo-delete-btn";
+    delete_btn.className = "todo-row-element";
+    delete_btn.innerHTML = "&#x292B;"; // Cross icon
+    delete_btn.addEventListener("mouseover", () => {
+        delete_btn.style.color = "red";
+        delete_btn.style["font-weight"] = "bold";
+    })
+    delete_btn.addEventListener("mouseout", () => {
+        delete_btn.style.color = "black";
+        delete_btn.style["font-weight"] = 100;
+    })
+    delete_btn.addEventListener("click", () => {
+        deleteToDo(todo);
+        createToDos(todo.projectId, todos);
+    })
+    row.appendChild(delete_btn);
+}
+
 let createToDoEntries = (todos) => {
     let body_content = document.querySelector(".body-content");
     body_content.innerHTML = ""; // Clear Content
@@ -76,98 +184,19 @@ let createToDoEntries = (todos) => {
         row.className = "todo-row";
         row.setAttribute("value", todo.id);
         
-        let priority_indicator = document.createElement("div");
-        priority_indicator.id = "priority-indicator";
-        let colour = todo.priority === "none" ? "gray" : todo.priority === "low" ? "green" : "red";
-        priority_indicator.style["background-color"] = colour;
-        row.appendChild(priority_indicator);
+        createPriorityIndicator(todo, row);
 
-        let checkbox = document.createElement("p");
-        checkbox.id = "todo-checkbox";
-        checkbox.className = "todo-row-element";
-        let box = document.createElement("span");
-        box.innerHTML = "&#x2610" // Unchecked Box
-        box.setAttribute("checked", "false");
-        box.addEventListener("click", () => {
-            let checked = box.getAttribute("checked");
-            let title = document.querySelector(`.todo-row[value="${todo.id}"] #todo-title`);
-            let due_date = document.querySelector(`.todo-row[value="${todo.id}"] #todo-date`);
-            if(checked === "false") {
-                checked_box(box, title, due_date);
-                todo.completed = true;
-                updateProjectTodos(todo.projectId, todo)
-            } else {
-                unchecked_box(box, title, due_date);
-                todo.completed = false;
-                updateProjectTodos(todo.projectId, todo)
-            }
-        })
-        checkbox.appendChild(box);
-        row.appendChild(checkbox);
-
-        let title = document.createElement("p");
-        title.id = "todo-title";
-        title.classList.add("todo-row-element", "todo-title-hover");
-        title.textContent = todo.title;
-        title.addEventListener("click", () => {
-            // func
-        })
-        row.appendChild(title);
-
-        let due_date = document.createElement("p");
-        due_date.id = "todo-date";
-        due_date.className = "todo-row-element";
-        let dueDate = todo.dueDate;
-        if(dueDate !== "") {
-            let todo_due_date = dueDate.split("-");
-            let year = todo_due_date[0];
-            let month = months[Number(todo_due_date[1]) - 1];
-            let day = todo_due_date[2];
-            due_date.textContent = `${month} ${day} ${year}`;
-        } else {
-            due_date.textContent = "No Due Date";
-        }        
-        row.appendChild(due_date);
+        let box = createCheckbox(todo, row);
+        let title = createTitle(todo, row);
+        let due_date = createDueDate(todo, row);
 
         if(todo.completed === true) {
             checked_box(box, title, due_date);
         }
         
-        let btn_highlight = "rgb(25, 146, 238)";
-        let edit_btn = document.createElement("button");
-        edit_btn.id = "todo-edit-btn";
-        edit_btn.className = "todo-row-element";
-        edit_btn.innerHTML = "&#x270E;"; // Pencil icon
-        edit_btn.addEventListener("mouseover", () => {
-            edit_btn.style.color = btn_highlight;
-            edit_btn.style["font-weight"] = "bold";
-        })
-        edit_btn.addEventListener("mouseout", () => {
-            edit_btn.style.color = "black";
-            edit_btn.style["font-weight"] = 100;
-        })
-        row.appendChild(edit_btn);
+        createEditBtn(todo, row);
+        createToDoDeleteBtn(todo, todos, row);
 
-        let delete_btn = document.createElement("button");
-        delete_btn.id = "todo-delete-btn";
-        delete_btn.className = "todo-row-element";
-        delete_btn.innerHTML = "&#x292B;"; // Cross icon
-        delete_btn.addEventListener("mouseover", () => {
-            delete_btn.style.color = "red";
-            delete_btn.style["font-weight"] = "bold";
-        })
-        delete_btn.addEventListener("mouseout", () => {
-            delete_btn.style.color = "black";
-            delete_btn.style["font-weight"] = 100;
-        })
-        delete_btn.addEventListener("click", () => {
-            let index = todos.indexOf(todo);
-            todos.splice(index, 1);
-            deleteToDo(todo.projectId, todos);
-            createToDos(todo.projectId, todos);
-        })
-
-        row.appendChild(delete_btn);
         body_content.appendChild(row);
     }
 }
@@ -178,7 +207,7 @@ let createProjectDeleteButton = (projectId) => {
     delete_btn_container.className = "delete-btn-container";
     let delete_btn = document.createElement("button");
     delete_btn.setAttribute("type", "button");
-    delete_btn.classList.add("project-delete-btn", "big-btn");
+    delete_btn.classList.add("big-delete-btn", "big-btn");
     let span = document.createElement("span");
     span.innerHTML = "&#x292B";
     delete_btn.appendChild(span);
@@ -195,9 +224,6 @@ let checked_box = (box, title, dueDate)  => {
     box.setAttribute("checked", "true");
     box.innerHTML = "&#x2611;" // Checked Box
     box.style.color = highlight_colour;
-    console.log(box);
-    console.log(title);
-    console.log(dueDate);
     
     title.classList.add("strike-out");
     title.classList.remove("todo-title-hover");

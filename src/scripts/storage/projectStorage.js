@@ -49,18 +49,27 @@ let getProjectById = id => {
     }
 }
 
-let deleteToDo = (projectId, todo) => {
-    if(projectId === "home") {
+let deleteToDo = (todo) => {
+    let project_id = todo.projectId; 
+    if(project_id === "home") {
         let index = home_project.todos.indexOf(todo);
         home_project.todos.splice(index, 1);
         localStorage.setItem("home", JSON.stringify(home_project));
     } else {
-        let project = getProjectById(projectId);
+        let project = getProjectById(project_id);
         let index = project.todos.indexOf(todo);
         project.todos.splice(index, 1);
         localStorage.setItem("projects", JSON.stringify(projects));
     }
 }
+
+let getToDoFromProject = (project, todoId) => {
+    for(let todo of project.todos) {
+        if(todo.id === todoId) {
+            return todo;
+        }
+    }
+} 
 
 let updateProjectTodos = (projectId) => {
     if(projectId === "home") {
@@ -70,4 +79,4 @@ let updateProjectTodos = (projectId) => {
     }
 }
 
-export { makeNewProject, updateProject, deleteProject, deleteToDo, updateProjectTodos, getProjectById, projects, home_project }
+export { makeNewProject, updateProject, deleteProject, deleteToDo, updateProjectTodos, getProjectById, getToDoFromProject, projects, home_project }

@@ -1,7 +1,9 @@
 import { getById, modifyName } from "./storageHelper";
-import { projects, home_project } from "./projectStorage";
+import { projects, home_project, getToDoFromProject } from "./projectStorage";
 import { createToDo } from "../objects/todo";
 import { addToDo } from "../objects/project";
+import { getCurrentlySelected } from "../sidebar";
+import { populate } from "../content/projectContent";
 
 let makeNewToDo = element => {
     let { id, title, description, dueDate, priority, targetProject } = extractFromToDoForm(element);
@@ -14,6 +16,10 @@ let makeNewToDo = element => {
     } else {
         localStorage.setItem("projects", JSON.stringify(projects));
     }
+
+    // Refresh contents
+    let selected = getCurrentlySelected();
+    populate(selected);
 }
 
 let extractFromToDoForm = (element) => {
@@ -45,14 +51,18 @@ let extractFromToDoForm = (element) => {
     return { id, title, description, dueDate, priority, targetProject }
 }
 
-let updateToDo = element => {
+let updateToDo = (element) => {
     let { title, description, dueDate, priority, targetProject } = extractFromToDoForm(element);
-    let id = element.id;
-    let todo = getToDo(targetProject.id, id);
+    let id = document.querySelector("form").getAttribute("value");
+    let todo = getToDoFromProject(targetProject, id);
     todo.title = title;
     todo.description = description;
     todo.dueDate = dueDate;
     todo.priority = priority;
+
+    // Refresh contents
+    let selected = getCurrentlySelected();
+    populate(selected);
 }
 
 let removeToDo = (projectId, todoId) => {
@@ -61,14 +71,7 @@ let removeToDo = (projectId, todoId) => {
     deleteToDo(project, todo);
 }
 
-let getToDo = (projectId, todoId) => {
-    let project = getById(projects, projectId);
-    for(let todo in project.todos) {
-        if(todo.id === todoId) {
-            return todo;
-        }
-    }
-} 
+
 
 // Determines which project is selected on the sidebar, which the todo will be added to
 let chooseProject = () => {
