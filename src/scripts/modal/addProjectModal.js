@@ -20,6 +20,7 @@ new_project_btn.addEventListener("click", () => {
     let project_form = document.querySelector(".project-form");  
     project_form.addEventListener("submit", e => {
         e.preventDefault();
+        modal.close();
         makeNewProject(project_form);
         populateProjectList();
     });
