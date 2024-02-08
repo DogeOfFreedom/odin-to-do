@@ -12,18 +12,18 @@ new_note_btn.addEventListener("click", () => {
             </div>
             <form class="note-form" action="">
                 <input name="title" type="text" id="title" maxlength="25" placeholder="New Note..." required>
-                <textarea name="description" id="description" cols="30" rows="10" placeholder="Description..."></textarea>
-                <button id="form-submit-btn" type="button">Submit</button>
+                <textarea name="description" id="description" cols="30" rows="10" placeholder="Description..." required></textarea>
+                <button id="form-submit-btn" type="submit">Submit</button>
             </form>   
         </div> 
     `
     modal.showModal();
-    let submit_btn = document.querySelector("#form-submit-btn");
-    submit_btn.addEventListener("click", e => {
+
+    let note_form = document.querySelector(".note-form");
+    note_form.addEventListener("submit", e => {
         e.preventDefault();
         modal.close();
-        let new_note_form = document.querySelector(".note-form");
-        makeNewNote(new_note_form);
+        makeNewNote(note_form);
 
         let selected = getCurrentlySelected();
         if(selected === "notes") {

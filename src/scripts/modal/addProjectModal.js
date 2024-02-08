@@ -11,17 +11,16 @@ new_project_btn.addEventListener("click", () => {
             </div>
             <form class="project-form" action="">
                 <input name="title" type="text" id="title" maxlength="20" placeholder="New Project..." required>
-                <button id="form-submit-btn" type="button">Submit</button>
+                <button id="form-submit-btn" type="submit">Submit</button>
             </form> 
         </div>     
     `
     modal.showModal();
-    let submit_btn = document.querySelector("#form-submit-btn");
-    submit_btn.addEventListener("click", e => {
+    
+    let project_form = document.querySelector(".project-form");  
+    project_form.addEventListener("submit", e => {
         e.preventDefault();
-        modal.close();
-        let new_project_form = document.querySelector(".project-form");
-        makeNewProject(new_project_form);
+        makeNewProject(project_form);
         populateProjectList();
     });
 })

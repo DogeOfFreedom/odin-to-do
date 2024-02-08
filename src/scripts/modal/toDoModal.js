@@ -40,7 +40,7 @@ let toDoModal = (modalTitle, modalAction, element, todo) => {
                         <button id="low-priority-btn" type="button" data-selected="false">Low</button>
                         <button id="high-priority-btn" type="button" data-selected="false">High</button>
                     </div>
-                    <button id="form-submit-btn" type="button">Submit</button>
+                    <button id="form-submit-btn" type="submit">Submit</button>
                 </form>
             </div>
         `
@@ -92,12 +92,11 @@ let toDoModal = (modalTitle, modalAction, element, todo) => {
             }
         }
 
-        let submit_btn = document.querySelector("#form-submit-btn");
-        submit_btn.addEventListener("click", e => {
+        let todo_form = document.querySelector(".todo-form");
+        todo_form.addEventListener("submit", e => {
             e.preventDefault();
             modal.close();
-            let new_todo_form = document.querySelector(".todo-form"); 
-            modalAction(new_todo_form);
+            modalAction(todo_form);
         });
     })
 }
