@@ -4,9 +4,11 @@ let createViewToDoModal = todo => {
         <div class="view-todo-container"> 
             <p>${todo.title}</p>
             <p>${todo.description}</p>
-            <button class="big-btn big-delete-btn">
-                <span>&#x292B</span>
-            </button>
+            <div>
+                <button class="note-delete-btn">
+                    <span>&#x292B</span>
+                </button>
+            </div>
         </div> 
     `
     dialog.showModal();

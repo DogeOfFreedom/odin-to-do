@@ -356,7 +356,7 @@ body {
     font-family: coolvetica;
     min-width: 100%;
     display: inline-block;
-    width: 100%;
+    width: 0px;
     position: relative;
     /* background-color: ; */
 
@@ -416,7 +416,35 @@ dialog {
 }
 
 .view-todo-container {
-    padding: 10px 20px;
+    padding: 40px 50px;
+    height: 80%;
+    overflow: auto;
+
+    & :first-child {
+        margin-top: 0px;
+    }
+
+    & p {
+        font-family: coolvetica;
+        font-size: 24px;
+        background-color: var(--white);
+        text-align: start;
+        overflow-wrap: break-word;
+        hyphens: manual;
+    }
+
+    & div {
+        display: flex;
+        justify-content: center;
+    }
+
+    & button {
+        font-size: 50px;
+    }
+
+    & button:hover {
+        font-size:  52px;
+    }
 }
 
 form {
